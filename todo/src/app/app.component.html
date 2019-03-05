@@ -4,5 +4,17 @@
   <li *ngFor="let todo of todos">
     {{todo.id}}.
     {{todo.title}}
-    - <button>Concluir</button> | <button>Remover</button></li>
+    - <button *ngIf="!todo.done" (click)="markAsDone(todo)">Concluir</button> |
+    - <button *ngIf="todo.done" (click)="markasUndone(todo)">Refazer</button> |
+    <button (click)="remove(todo)">Remover</button></li>
 </ul>
+<form [formGroup]="form">
+  <fieldset>
+    <label>Tarefa: </label>
+    <input type="text"
+    placeholder="Informe a tarefa"
+    maxlength="60"
+    formControlName="title">
+    <button>Salvar</button>
+  </fieldset>
+</form>
