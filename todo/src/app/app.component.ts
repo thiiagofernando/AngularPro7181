@@ -23,17 +23,19 @@ export class AppComponent {
         ])
       ]
     });
+    this.load();
   }
   alterarTexto() {
     this.title = "Alterado";
   }
   add() {
-    const title = this.form.controls['title'].value;
+    const title = this.form.controls["title"].value;
     const id = this.todos.length + 1;
     this.todos.push(new Todo(id, title, false));
+    this.save();
     this.clear();
   }
-  clear(){
+  clear() {
     this.form.reset();
   }
   remove(todo: Todo) {
@@ -41,11 +43,26 @@ export class AppComponent {
     if (index !== -1) {
       this.todos.splice(index, 1);
     }
+    this.save();
   }
   markAsDone(todo: Todo) {
     todo.done = true;
+    this.save();
   }
   markasUndone(todo: Todo) {
     todo.done = false;
+    this.save();
+  }
+  save() {
+    const data = JSON.stringify(this.todos);
+    localStorage.setItem("todos", data);
+  }
+  load() {
+    const data = localStorage.getItem("todos");
+    if (data) {
+      this.todos = JSON.parse(data);
+    } else {
+      this.todos = [];
+    }
   }
 }
