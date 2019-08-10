@@ -8,8 +8,9 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
+  public mode = "list";
   public todos: Todo[] = [];
-  public title: String = "Minhas Tarefas";
+  public title: String = "Lista de Tarefas";
   public form: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -64,5 +65,9 @@ export class AppComponent {
     } else {
       this.todos = [];
     }
+  }
+
+  changeMode(mode: string) {
+    this.mode = mode;
   }
 }
